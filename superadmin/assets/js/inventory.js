@@ -147,3 +147,16 @@ function loadCategoriesAndSuppliers() {
         .join("");
     });
 }
+
+/*=============== TOGGLE DROPDOWN MENU ===============*/
+const inventoryLink = document.getElementById("inventory-link");
+const inventorySubmenu = document.getElementById("inventory-submenu");
+
+if (inventoryLink && inventorySubmenu) {
+  inventoryLink.addEventListener("click", (event) => {
+    // Prevent the default link behavior to stay on the same page
+    event.preventDefault();
+    // Toggle the visibility of the submenu
+    inventorySubmenu.classList.toggle("show-submenu");
+  });
+}

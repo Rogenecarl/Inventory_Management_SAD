@@ -297,6 +297,62 @@ body.dark-theme {
   background-color: var(--first-color);
 }
 
+/* Dropdown submenu (Initially hidden) */
+.sidebar__submenu {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  padding-left: 1rem;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.sidesub {
+  margin-top: 15px;
+}
+
+.sidebar__submenu a {
+  padding-left: 2.5rem; /* Slight indentation for submenu items */
+  animation: fadeIn 1s;
+}
+
+.sidebar__submenu a:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.sidebar__submenu a:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.sidebar__submenu a:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.sidebar__submenu .sidebar__link {
+  font-size: var(--normal-font-size);
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+}
+
+/* Show submenu when the class is added */
+.sidebar__submenu.show-submenu {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /*=============== BREAKPOINTS ===============*/
 /* For small devices */
 @media screen and (max-width: 360px) {
@@ -492,36 +548,38 @@ body.dark-theme {
 }
 
 /* Column 3: Products Table */
-.products {
-  padding: 20px;
-  background-color: #f4f4f4; /* Card background */
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Card shadow */
-  border: 1px solid #e0e0e0; /* Border color */
+/* Table Styling */
+.table-container {
   overflow-x: auto;
-  height: 20rem;
+  /* Horizontal scroll for small screens */
 }
 
-.products h3 {
-  margin-bottom: 1rem;
-  color: #0077b6; /* Heading color */
-}
-
-.products table {
+table {
   width: 100%;
   border-collapse: collapse;
+  margin-bottom: 20px;
 }
 
-.products table th,
-.products table td {
-  padding: 10px;
-  border-bottom: 1px solid #e0e0e0; /* Border color */
-  text-align: left;
-}
-
-.products table th {
-  background-color: #0077b6; /* Heading color */
+thead {
+  background-color: #007bff;
   color: #fff;
+}
+
+th,
+td {
+  padding: 12px 15px;
+  text-align: center; /* Center text for both headers and data cells */
+  border-bottom: 1px solid #ddd;
+  color: #333;
+  font-size: 16px;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+th {
+  font-weight: bold;
 }
 
 /* Column 4: Users Table */

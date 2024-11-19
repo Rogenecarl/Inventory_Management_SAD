@@ -66,25 +66,38 @@ themeButton.addEventListener("click", () => {
   localStorage.setItem("selected-icon", getCurrentIcon());
 });
 
+/*=============== TOGGLE DROPDOWN MENU ===============*/
+const inventoryLink = document.getElementById("inventory-link");
+const inventorySubmenu = document.getElementById("inventory-submenu");
+
+if (inventoryLink && inventorySubmenu) {
+  inventoryLink.addEventListener("click", (event) => {
+    // Prevent the default link behavior to stay on the same page
+    event.preventDefault();
+    // Toggle the visibility of the submenu
+    inventorySubmenu.classList.toggle("show-submenu");
+  });
+}
+
 const ctx1 = document.getElementById("analyticsChart1").getContext("2d");
 const ctx2 = document.getElementById("analyticsChart2").getContext("2d");
 
 // var ctx1 = document.getElementById('myChart1').getContext('2d');
- new Chart(ctx1, {
+new Chart(ctx1, {
   type: "pie",
   data: {
     labels: ["Strings", "Percussion", "Wind Instruments"],
     datasets: [
       {
         data: [10, 5, 15],
-        backgroundColor: ["#ff6384", "#36a2eb", "#cc65fe"], 
+        backgroundColor: ["#ff6384", "#36a2eb", "#cc65fe"],
       },
     ],
   },
   options: {
     responsive: true,
-    height: 200 // Set the height of the chart
-  }
+    height: 200, // Set the height of the chart
+  },
 });
 
 new Chart(ctx2, {

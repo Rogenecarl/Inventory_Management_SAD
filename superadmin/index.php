@@ -96,10 +96,28 @@ include '../functions/login_function.php'; // Include the login function
                             <span>User Management</span>
                         </a>
 
-                        <a href="inventory.php" class="sidebar__link">
+                        <a href="#" class="sidebar__link" id="inventory-link"
+                            style="display: flex; align-items: start; justify-content: start;">
                             <i class="ri-git-repository-fill"></i>
                             <span>Inventory</span>
+                            <i class="ri-arrow-down-s-line" style="margin-left: auto; padding-right:20px"></i>
                         </a>
+
+                        <!-- Dropdown Menu (Initially Hidden) -->
+                        <div class="sidebar__submenu" id="inventory-submenu">
+                            <a href="inventory.php" class="sidebar__link active-link">
+                                <i class="ri-file-list-2-fill"></i>
+                                <span>Product List</span>
+                            </a>
+                            <a href="#" class="sidebar__link sidesub">
+                                <i class="ri-folder-2-fill"></i>
+                                <span>Manage Stocks</span>
+                            </a>
+                            <a href="#" class="sidebar__link sidesub">
+                                <i class="ri-search-line"></i>
+                                <span>Inventory History</span>
+                            </a>
+                        </div>
 
                         <a href="category.php" class="sidebar__link">
                             <i class="ri-bar-chart-fill"></i>
@@ -182,46 +200,67 @@ include '../functions/login_function.php'; // Include the login function
             <!-- Column 2: Analytics with Two Charts -->
             <div class="analytics">
                 <div class="analytics-card">
-                    <h3>Inventory Analytics - Pie Chart</h3>
-                    <canvas id="analyticsChart1" class="analytics-chart"></canvas>
+                    <h3>Inventory Analytics</h3>
+                    <canvas id="analyticsChart1" class="analytics-chart" style="height: 50px;"></canvas>
                 </div>
                 <div class="analytics-card">
-                    <h3>Inventory Analytics - Bar Chart</h3>
-                    <canvas id="analyticsChart2" class="analytics-chart"></canvas>
+                    <h3>Inventory Analytics</h3>
+                    <canvas id="analyticsChart2" class="analytics-chart" style="height: 50px;"></canvas>
                 </div>
             </div>
 
             <!-- Column 3: Products Table -->
-            <div class="products">
-                <h3>Products Table</h3>
-                <table>
+            <div class="table-container">
+                <h3>Products</h3>
+                <table id="productTable">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
+                            <th>Product Name</th>
                             <th>Category</th>
-                            <th>Stock</th>
+                            <th>Supplier</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Image</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Guitar</td>
-                            <td>Strings</td>
-                            <td>10</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Piano</td>
-                            <td>Keyboard</td>
-                            <td>5</td>
-                        </tr>
+                        <?php
+                        // Fetch products from the database
+                        $stmt = $conn->query("SELECT * FROM products");
+                        while ($row = $stmt->fetch()) {
+                            // Fetch category and supplier names from the database using category_id and supplier_id
+                            $categoryStmt = $conn->prepare("SELECT category_name FROM categories WHERE category_id = ?");
+                            $categoryStmt->execute([$row['category_id']]);
+                            $category = $categoryStmt->fetchColumn();
+
+                            $supplierStmt = $conn->prepare("SELECT supplier_name FROM suppliers WHERE supplier_id = ?");
+                            $supplierStmt->execute([$row['supplier_id']]);
+                            $supplier = $supplierStmt->fetchColumn();
+
+                            echo "<tr>";
+                            echo "<td>" . $row['product_id'] . "</td>";
+                            echo "<td>" . $row['name'] . "</td>";
+                            echo "<td>" . $category . "</td>";
+                            echo "<td>" . $supplier . "</td>";
+                            echo "<td>" . number_format($row['price'], 2) . "</td>";
+                            echo "<td>" . $row['quantity'] . "</td>";
+                            echo "<td><img src='../uploads/" . $row['image'] . "' width='50' alt='Product Image'></td>";
+                            echo "<td>" . $row['created_at'] . "</td>";
+                            echo "<td>" . $row['updated_at'] . "</td>";
+                            echo "<td>";
+                            echo "</td>";
+                            echo "</tr>";
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
 
             <!-- Column 4: Users Table -->
-            <div class="users">
+            <!-- <div class="users">
                 <h3>Users Table</h3>
                 <table>
                     <thead>
@@ -248,7 +287,7 @@ include '../functions/login_function.php'; // Include the login function
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div> -->
     </main>
     <!--=============== MAIN JS ===============-->
 

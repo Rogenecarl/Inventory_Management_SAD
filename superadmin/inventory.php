@@ -59,10 +59,29 @@ include '../functions/manageproduct_function.php'; // Include the login function
               <span>User Management</span>
             </a>
 
-            <a href="#" class="sidebar__link active-link">
+            <a href="#" class="sidebar__link" id="inventory-link"
+              style="display: flex; align-items: start; justify-content: start;">
               <i class="ri-git-repository-fill"></i>
               <span>Inventory</span>
+              <i class="ri-arrow-down-s-line" style="margin-left: auto; padding-right:20px"></i>
             </a>
+
+            <!-- Dropdown Menu (Initially Hidden) -->
+            <div class="sidebar__submenu" id="inventory-submenu">
+              <a href="inventory.php" class="sidebar__link">
+                <i class="ri-file-list-2-fill"></i>
+                <span>Product List</span>
+              </a>
+              <a href="#" class="sidebar__link sidesub">
+                <i class="ri-folder-2-fill"></i>
+                <span>Manage Stocks</span>
+              </a>
+              <a href="#" class="sidebar__link sidesub">
+                <i class="ri-search-line"></i>
+                <span>Inventory History</span>
+              </a>
+            </div>
+
 
             <a href="category.php" class="sidebar__link">
               <i class="ri-bar-chart-fill"></i>
@@ -238,6 +257,8 @@ include '../functions/manageproduct_function.php'; // Include the login function
               <th>Product Name</th>
               <th>Category</th>
               <th>Supplier</th>
+              <th>Brand</th> <!-- Added -->
+              <th>Model</th> <!-- Added -->
               <th>Price</th>
               <th>Quantity</th>
               <th>Image</th>
@@ -246,12 +267,14 @@ include '../functions/manageproduct_function.php'; // Include the login function
               <th>Actions</th>
             </tr>
           </thead>
+
           <tbody>
             <?php
             // Fetch products from the database
-            $stmt = $conn->query("SELECT * FROM products");
+            $stmt = $conn->query("SELECT product_id, name, category_id, supplier_id, price, quantity, image, brand, model, created_at, updated_at FROM products");
+
             while ($row = $stmt->fetch()) {
-              // Fetch category and supplier names from the database using category_id and supplier_id
+              // Fetch category and supplier names
               $categoryStmt = $conn->prepare("SELECT category_name FROM categories WHERE category_id = ?");
               $categoryStmt->execute([$row['category_id']]);
               $category = $categoryStmt->fetchColumn();
@@ -265,6 +288,8 @@ include '../functions/manageproduct_function.php'; // Include the login function
               echo "<td>" . $row['name'] . "</td>";
               echo "<td>" . $category . "</td>";
               echo "<td>" . $supplier . "</td>";
+              echo "<td>" . $row['brand'] . "</td>"; // Brand column
+              echo "<td>" . $row['model'] . "</td>"; // Model column
               echo "<td>" . number_format($row['price'], 2) . "</td>";
               echo "<td>" . $row['quantity'] . "</td>";
               echo "<td><img src='../uploads/" . $row['image'] . "' width='50' alt='Product Image'></td>";
@@ -278,6 +303,7 @@ include '../functions/manageproduct_function.php'; // Include the login function
               echo "</td>";
               echo "</tr>";
             }
+
             ?>
           </tbody>
         </table>

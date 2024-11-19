@@ -66,6 +66,19 @@ themeButton.addEventListener("click", () => {
   localStorage.setItem("selected-icon", getCurrentIcon());
 });
 
+/*=============== TOGGLE DROPDOWN MENU ===============*/
+const inventoryLink = document.getElementById("inventory-link");
+const inventorySubmenu = document.getElementById("inventory-submenu");
+
+if (inventoryLink && inventorySubmenu) {
+  inventoryLink.addEventListener("click", (event) => {
+    // Prevent the default link behavior to stay on the same page
+    event.preventDefault();
+    // Toggle the visibility of the submenu
+    inventorySubmenu.classList.toggle("show-submenu");
+  });
+}
+
 //modal for create account usermanagement.php
 
 // Open the Create Account Modal
@@ -88,7 +101,7 @@ window.onclick = function (event) {
 // Function to open the edit modal and populate it with user data
 // Open Edit Modal and populate fields
 function editUser(userId) {
-  // Get user data from the server via AJAX
+  // Fetch user data
   fetch(`../functions/manageuser_function.php?action=get_user&id=${userId}`)
     .then((response) => response.json())
     .then((user) => {
@@ -97,11 +110,12 @@ function editUser(userId) {
       document.getElementById("editUsername").value = user.username;
       document.getElementById("editEmail").value = user.email;
       document.getElementById("editRole").value = user.role;
+      document.getElementById("editStatus").value = user.status; // Ensures the dropdown is set to the current status
 
-      // Show the modal
+      // Open the modal
       document.getElementById("editModal").style.display = "block";
     })
-    .catch((error) => console.error("Error:", error));
+    .catch((error) => console.error("Error fetching user data:", error));
 }
 
 // Close any modal

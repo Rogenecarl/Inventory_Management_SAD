@@ -59,10 +59,29 @@ include '../functions/managesupplier_function.php'; // Include the supplier mana
               <span>User Management</span>
             </a>
 
-            <a href="inventory.php" class="sidebar__link">
+            <a href="#" class="sidebar__link" id="inventory-link"
+              style="display: flex; align-items: start; justify-content: start;">
               <i class="ri-git-repository-fill"></i>
               <span>Inventory</span>
+              <i class="ri-arrow-down-s-line" style="margin-left: auto; padding-right:20px"></i>
             </a>
+
+            <!-- Dropdown Menu (Initially Hidden) -->
+            <div class="sidebar__submenu" id="inventory-submenu">
+              <a href="inventory.php" class="sidebar__link">
+                <i class="ri-file-list-2-fill"></i>
+                <span>Product List</span>
+              </a>
+              <a href="#" class="sidebar__link sidesub">
+                <i class="ri-folder-2-fill"></i>
+                <span>Manage Stocks</span>
+              </a>
+              <a href="#" class="sidebar__link sidesub">
+                <i class="ri-search-line"></i>
+                <span>Inventory History</span>
+              </a>
+            </div>
+
 
             <a href="category.php" class="sidebar__link">
               <i class="ri-bar-chart-fill"></i>
@@ -120,7 +139,7 @@ include '../functions/managesupplier_function.php'; // Include the supplier mana
     <div class="main__container">
       <!-- Create Supplier Button -->
       <div class="search-create-container">
-        <button class="createbtn" onclick="openCreateSupplierModal()">Create Supplier</button>
+        <button class="createbtn" onclick="openCreateSupplierModal()">Add Supplier</button>
       </div>
 
       <!-- Create Supplier Modal -->

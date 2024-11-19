@@ -297,6 +297,62 @@ body.dark-theme {
   background-color: var(--first-color);
 }
 
+ /* Dropdown submenu (Initially hidden) */
+ .sidebar__submenu {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  padding-left: 1rem;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.sidesub {
+  margin-top: 15px;
+}
+
+.sidebar__submenu a {
+  padding-left: 2.5rem; /* Slight indentation for submenu items */
+  animation: fadeIn 1s;
+}
+
+.sidebar__submenu a:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.sidebar__submenu a:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.sidebar__submenu a:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.sidebar__submenu .sidebar__link {
+  font-size: var(--normal-font-size);
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+}
+
+/* Show submenu when the class is added */
+.sidebar__submenu.show-submenu {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /*=============== BREAKPOINTS ===============*/
 /* For small devices */
 @media screen and (max-width: 360px) {

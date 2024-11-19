@@ -66,6 +66,19 @@ themeButton.addEventListener("click", () => {
   localStorage.setItem("selected-icon", getCurrentIcon());
 });
 
+/*=============== TOGGLE DROPDOWN MENU ===============*/
+const inventoryLink = document.getElementById("inventory-link");
+const inventorySubmenu = document.getElementById("inventory-submenu");
+
+if (inventoryLink && inventorySubmenu) {
+  inventoryLink.addEventListener("click", (event) => {
+    // Prevent the default link behavior to stay on the same page
+    event.preventDefault();
+    // Toggle the visibility of the submenu
+    inventorySubmenu.classList.toggle("show-submenu");
+  });
+}
+
 // Open modal to create a new supplier
 function openCreateSupplierModal() {
   document.getElementById("createSupplierModal").style.display = "block";
